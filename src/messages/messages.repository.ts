@@ -17,13 +17,13 @@ export class MessagesRepository {
     return messages;
   }
 
-  async create(content: string) {
+  async create(body) {
     const contents = await fs.readFile("messages.json", "utf8");
     const messages = JSON.parse(contents);
 
     const id = Math.floor(Math.random() * 999);
-    messages[id] = { id, content };
 
+    messages[id] = { id, content: body.content, test: body.test };
     await fs.writeFile("messages.json", JSON.stringify(messages));
   }
 }
